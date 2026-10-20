@@ -58,6 +58,6 @@ open ios/Revia.xcworkspace
 
 在 Xcode 的 Revia target → Signing & Capabilities 中选择自己的 Team，并确认 Bundle Identifier 唯一。连接 iPhone、启用开发者模式，选择手机作为运行目标，使用 Debug 配置运行。
 
-默认 Debug 连接 Metro 获取 JavaScript 代码，开发时另开终端运行 `npm start`。也可以运行 `npm run ios -- --device` 自动编译并选择手机。此工程目前保持默认的联网调试模式，尚未配置离线 Debug bundle。
+iOS Debug 通过 `plugins/with-offline-debug.cjs` 内置 JavaScript 和资源，并直接从安装包加载，无需运行 Metro。修改代码后需要在 Xcode 中重新 Build / Run 安装才能更新，不能通过热更新刷新。仍可使用 Xcode 调试原生代码；内置 JS 使用 `--dev false --minify false`，禁用依赖 Metro 的 JS 开发工具以避免离线启动报错。React Native DevTools、开发模式检查和热更新不属于此离线模式。重新 prebuild 时会自动保留这套配置。
 
 Expo Go 和独立安装的 Revia 使用不同的应用沙盒，原有本地句子不会自动迁移。
